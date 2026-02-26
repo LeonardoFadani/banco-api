@@ -1,7 +1,15 @@
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
+from dotenv import load_dotenv
 
-DATABASE_URL = "postgresql://banco_user:1234@localhost:5432/banco_api"
+# Carrega variáveis do .env
+load_dotenv()
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL não encontrada no .env")
 
 engine = create_engine(DATABASE_URL)
 
